@@ -10,20 +10,20 @@
         android:id="@+id/btn_music1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Button1"
+        android:text="NewJeans1"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/btn_music2"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/btn_music2"
         />
-
+<!-- 상관 없지 않나? -->
     <Button
         android:id="@+id/btn_music2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Button2"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@id/btn_music1"
+        android:text="NewJeans2"
+        app:layout_constraintTop_toBottomOf="@id/btn_music1"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         />
