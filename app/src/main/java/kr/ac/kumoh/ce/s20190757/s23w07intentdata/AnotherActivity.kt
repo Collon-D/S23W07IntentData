@@ -1,6 +1,8 @@
 package kr.ac.kumoh.ce.s20190757.s23w07intentdata
 
 import android.app.Activity
+import android.app.Activity.RESULT_OK
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import androidx.activity.ComponentActivity
@@ -22,9 +24,20 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import kr.ac.kumoh.ce.s20190757.s23w07intentdata.AnotherActivity.Companion.DISLIKE
+import kr.ac.kumoh.ce.s20190757.s23w07intentdata.AnotherActivity.Companion.IMAGE_NAME
+import kr.ac.kumoh.ce.s20190757.s23w07intentdata.AnotherActivity.Companion.IMAGE_RESULT
+import kr.ac.kumoh.ce.s20190757.s23w07intentdata.AnotherActivity.Companion.LIKE
 import kr.ac.kumoh.ce.s20190757.s23w07intentdata.ui.theme.S23W07IntentDataTheme
 
 class AnotherActivity : ComponentActivity() {
+    companion object {
+        const val IMAGE_NAME = "image name"
+        const val IMAGE_RESULT = "image result"
+        const val LIKE = 100
+        const val DISLIKE = 101
+        const val NONE = 0
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -41,11 +54,20 @@ class AnotherActivity : ComponentActivity() {
     }
 }
 
+fun onResultClick(activity: Activity, imageName: String?, imageResult: Int) {
+    val intent = Intent()
+    intent.putExtra(IMAGE_NAME, imageName)
+    intent.putExtra(IMAGE_RESULT, imageResult)
+    activity.setResult(RESULT_OK, intent)
+    activity.finish()
+}
+
 @Composable
 fun SingerImage(modifier: Modifier = Modifier) {
     val activity = LocalContext.current as Activity
     val intent = activity.intent
-    val res = when(intent.getStringExtra(MainActivity.KEY_NAME)) {
+    val imageName = intent.getStringExtra(MainActivity.KEY_NAME)
+    val res = when(imageName) {
         MainActivity.IMAGE_NEWJEANS1 -> R.drawable.newjeans1
         MainActivity.IMAGE_NEWJEANS2 -> R.drawable.newjeans2
         else -> R.drawable.ic_launcher_foreground
@@ -61,10 +83,14 @@ fun SingerImage(modifier: Modifier = Modifier) {
         modifier = modifier.fillMaxWidth().wrapContentHeight(Alignment.Bottom),
             horizontalArrangement = Arrangement.SpaceEvenly
     ) {
-        Button(onClick = {}) {
+        Button(onClick = {
+            onResultClick(activity, imageName, LIKE)
+        }) {
             Text("좋아요")
         }
-        Button(onClick = {}) {
+        Button(onClick = {
+            onResultClick(activity, imageName, DISLIKE)
+        }) {
             Text("싫어요")
         }
     }
