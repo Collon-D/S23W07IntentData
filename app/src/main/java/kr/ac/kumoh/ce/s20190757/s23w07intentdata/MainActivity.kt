@@ -33,8 +33,12 @@ class MainActivity : AppCompatActivity(), OnClickListener {
             ImageActivity.DISLIKE -> "싫어요"
             else -> "error"
         }
+        when (it.data?.getStringExtra(ImageActivity.IMAGE_NAME)) {
+            IMAGE_NEWJEANS1 -> main.btnMusic1.text = "NewJeans1 ($str)"
+            IMAGE_NEWJEANS2 -> main.btnMusic2.text = "NewJeans2 ($str)"
+        }
 
-        Log.i("result", str)
+//        Log.i("result", str)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,7 +63,7 @@ class MainActivity : AppCompatActivity(), OnClickListener {
             else -> return
         }
 
-        val intent = Intent(this, ImageActivity::class.java)
+        val intent = Intent(this, AnotherActivity::class.java)
         intent.putExtra(KEY_NAME, value)
         //startActivity(intent)
         startForResult.launch(intent)
